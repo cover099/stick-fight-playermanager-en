@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- PlayerManager v5.1.0 (stick.plugins.playermanager), decompiled and translated to English.
+       Same plugin GUID as the original, so it replaces it and keeps its config. -->
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <AssemblyName>stick.plugins.playermanager-v5.1.0-en</AssemblyName>
+    <RootNamespace>stick.plugins.playermanager</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <!-- Path to a Stick Fight install with BepInEx 5; override with -p:GameDir=/path/to/StickFightTheGame/ -->
+    <GameDir Condition="'$(GameDir)' == ''">$(MSBuildThisFileDirectory)../StickFightTheGame/</GameDir>
+    <Managed>$(GameDir)StickFight_Data/Managed/</Managed>
+    <SteamPlugins Condition="'$(SteamPlugins)' == ''">$(HOME)/.local/share/Steam/steamapps/common/StickFightTheGame/BepInEx/plugins/</SteamPlugins>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="src/**/*.cs" />
+    <Reference Include="$(Managed)mscorlib.dll" Private="false" />
+    <Reference Include="$(Managed)System.dll" Private="false" />
+    <Reference Include="$(Managed)System.Core.dll" Private="false" />
+    <Reference Include="$(Managed)UnityEngine.dll" Private="false" />
+    <Reference Include="$(Managed)Assembly-CSharp.dll" Private="false" />
+    <Reference Include="$(Managed)Assembly-CSharp-firstpass.dll" Private="false" />
+    <Reference Include="$(Managed)Lidgren.Network.dll" Private="false" />
+    <Reference Include="$(GameDir)BepInEx/core/BepInEx.dll" Private="false" />
+    <Reference Include="$(GameDir)BepInEx/core/0Harmony.dll" Private="false" />
+  </ItemGroup>
+
+  <!-- Installs into the test copy and the real Steam install (skipped if that folder is missing). -->
+  <Target Name="InstallPlugin" AfterTargets="Build">
+    <Delete Files="$(GameDir)BepInEx/plugins/stick.plugins.playermanager-v5.1.0.dll" />
+    <Delete Files="$(SteamPlugins)/stick.plugins.playermanager-v5.1.0.dll" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)BepInEx/plugins/" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SteamPlugins)" Condition="Exists('$(SteamPlugins)')" />
+  </Target>
+
+</Project>
