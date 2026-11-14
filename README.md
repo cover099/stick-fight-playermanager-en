@@ -1,6 +1,6 @@
 # PlayerManager (English)
 
-An unofficial English translation of the **PlayerManager v5.1.0** BepInEx plugin for **Stick Fight: The Game** (plugin ID `stick.plugins.playermanager`). The original is a Chinese mod and isn't mine. This repository is for personal use.
+An unofficial English translation of the **PlayerManager v5.1.0** BepInEx plugin for **Stick Fight: The Game** (plugin ID `stick.plugins.playermanager`). The original is a Chinese mod and isn't mine.
 
 The source in `src/` was decompiled from the original DLL (kept in `original/`) and rebuilt. Changes from the original:
 
