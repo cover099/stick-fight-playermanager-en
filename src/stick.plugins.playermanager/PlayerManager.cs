@@ -160,7 +160,7 @@ public class PlayerManager : BaseUnityPlugin
 		//IL_017d: Expected Obj, but got Unknown
 		//IL_01a7: Unknown result type (might be due to invalid IL or missing references)
 		//IL_01b1: Expected Obj, but got Unknown
-		_blockKicks = ((BaseUnityPlugin)this).Config.Bind<bool>("General", "BlockKicks", true, "Block kick requests from other players");
+		_blockKicks = ((BaseUnityPlugin)this).Config.Bind<bool>("General", "BlockKicks", true, "Ignore every attempt by other players to kick you from a lobby (kick messages and forced removals)");
 		_lobbyInfoToggleKeyCode = ((BaseUnityPlugin)this).Config.Bind<KeyCode>("LobbyInfo", "ToggleKeyCode", (KeyCode)283, "Hotkey to open/close the lobby info window");
 		ShowKickButton = ((BaseUnityPlugin)this).Config.Bind<bool>("GUI", "ShowKickButton", true, "Show the Kick button");
 		ShowTransButton = ((BaseUnityPlugin)this).Config.Bind<bool>("GUI", "ShowTransButton", true, "Show the Make Host button");
@@ -179,6 +179,7 @@ public class PlayerManager : BaseUnityPlugin
 		if (_blockKicks.Value)
 		{
 			Harmony.CreateAndPatchAll(typeof(IgnoreKick), (string)null);
+			Harmony.CreateAndPatchAll(typeof(IgnoreKickReset), (string)null);
 		}
 		Harmony.CreateAndPatchAll(typeof(ApplyBlacklist), (string)null);
 		Harmony.CreateAndPatchAll(typeof(ListenForChange), (string)null);

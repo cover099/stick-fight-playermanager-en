@@ -38,6 +38,9 @@
   <Target Name="InstallPlugin" AfterTargets="Build">
     <Delete Files="$(GameDir)BepInEx/plugins/stick.plugins.playermanager-v5.1.0.dll" />
     <Delete Files="$(SteamPlugins)/stick.plugins.playermanager-v5.1.0.dll" />
+    <!-- AntiKick is merged into this plugin; the standalone DLL would patch the same thing twice. -->
+    <Delete Files="$(GameDir)BepInEx/plugins/AntiKick.dll" />
+    <Delete Files="$(SteamPlugins)/AntiKick.dll" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)BepInEx/plugins/" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SteamPlugins)" Condition="Exists('$(SteamPlugins)')" />
   </Target>
